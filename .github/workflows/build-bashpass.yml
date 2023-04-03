@@ -40,6 +40,23 @@ jobs:
           PACKAGE-NAME: bashpass-3.0-1.noarch.rpm
           PACKAGECLOUD-USERNAME: AntonVanAssche
           PACKAGECLOUD-REPO: bashpass
+          PACKAGECLOUD-DISTRIB: fedora/36/
+          PACKAGECLOUD-TOKEN: ${{ secrets.PACKAGECLOUD_TOKEN }}
+
+      - uses: danielmundi/upload-packagecloud@v1
+        with:
+          PACKAGE-NAME: bashpass-3.0-1.noarch.rpm
+          PACKAGECLOUD-USERNAME: AntonVanAssche
+          PACKAGECLOUD-REPO: bashpass
+          PACKAGECLOUD-DISTRIB: fedora/36/
+          PACKAGECLOUD-TOKEN: ${{ secrets.PACKAGECLOUD_TOKEN }}
+
+      - uses: AntonVanAssche/yank-packagecloud@v1.0
+        continue-on-error: true
+        with:
+          PACKAGE-NAME: bashpass-3.0-1.noarch.rpm
+          PACKAGECLOUD-USERNAME: AntonVanAssche
+          PACKAGECLOUD-REPO: bashpass
           PACKAGECLOUD-DISTRIB: fedora/37/
           PACKAGECLOUD-TOKEN: ${{ secrets.PACKAGECLOUD_TOKEN }}
 
