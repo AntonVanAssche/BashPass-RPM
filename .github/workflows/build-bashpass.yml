@@ -1,0 +1,52 @@
+name: RPM Build BashPass
+on: push
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+
+    - name: Install Pre-requirements
+      run: |
+        sudo apt update
+        sudo apt install -y rpm
+
+    - name: build BashPass RPM package
+      id: rpm
+      run: |
+        cd bashpass/ || exit 1
+        git clone https://github.com/AntonVanAssche/BashPass.git
+        cd BashPass && git checkout $(git tag | tail -n 1) && cd ../
+        bash build.sh
+        cp -r ~/rpmbuild/RPMS/noarch/* .
+
+    - uses: actions/upload-artifact@v2
+      with:
+        name: rpm
+        path: bashpass/bashpass-3.0-1.noarch.rpm
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/download-artifact@v2
+        with:
+          name: rpm
+
+      - uses: AntonVanAssche/yank-packagecloud@v1.0
+        continue-on-error: true
+        with:
+          PACKAGE-NAME: bashpass-3.0-1.noarch.rpm
+          PACKAGECLOUD-USERNAME: AntonVanAssche
+          PACKAGECLOUD-REPO: bashpass
+          PACKAGECLOUD-DISTRIB: fedora/37/
+          PACKAGECLOUD-TOKEN: ${{ secrets.PACKAGECLOUD_TOKEN }}
+
+      - uses: danielmundi/upload-packagecloud@v1
+        with:
+          PACKAGE-NAME: bashpass-3.0-1.noarch.rpm
+          PACKAGECLOUD-USERNAME: AntonVanAssche
+          PACKAGECLOUD-REPO: bashpass
+          PACKAGECLOUD-DISTRIB: fedora/37/
+          PACKAGECLOUD-TOKEN: ${{ secrets.PACKAGECLOUD_TOKEN }}
