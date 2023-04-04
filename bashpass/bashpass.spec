@@ -1,5 +1,5 @@
 Name:           bashpass
-Version:        3.0
+Version:        3.1
 Release:        1%{?dist}
 Summary:        A command-line based password manager written in Bash.
 BuildArch:      noarch
