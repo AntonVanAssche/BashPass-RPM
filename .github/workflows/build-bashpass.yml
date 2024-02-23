@@ -30,7 +30,7 @@ jobs:
     - uses: actions/upload-artifact@v2
       with:
         name: rpm
-        path: bashpass/bashpass-3.1-1.noarch.rpm
+        path: bashpass/bashpass-3.2-1.noarch.rpm
 
   deploy:
     needs: build
@@ -43,7 +43,7 @@ jobs:
       - uses: AntonVanAssche/yank-packagecloud@v1.0
         continue-on-error: true
         with:
-          PACKAGE-NAME: bashpass-3.1-1.noarch.rpm
+          PACKAGE-NAME: bashpass-3.2-1.noarch.rpm
           PACKAGECLOUD-USERNAME: AntonVanAssche
           PACKAGECLOUD-REPO: bashpass
           PACKAGECLOUD-DISTRIB: fedora/36/
@@ -51,7 +51,7 @@ jobs:
 
       - uses: danielmundi/upload-packagecloud@v1
         with:
-          PACKAGE-NAME: bashpass-3.1-1.noarch.rpm
+          PACKAGE-NAME: bashpass-3.2-1.noarch.rpm
           PACKAGECLOUD-USERNAME: AntonVanAssche
           PACKAGECLOUD-REPO: bashpass
           PACKAGECLOUD-DISTRIB: fedora/36/
@@ -60,7 +60,7 @@ jobs:
       - uses: AntonVanAssche/yank-packagecloud@v1.0
         continue-on-error: true
         with:
-          PACKAGE-NAME: bashpass-3.1-1.noarch.rpm
+          PACKAGE-NAME: bashpass-3.2-1.noarch.rpm
           PACKAGECLOUD-USERNAME: AntonVanAssche
           PACKAGECLOUD-REPO: bashpass
           PACKAGECLOUD-DISTRIB: fedora/37/
@@ -68,7 +68,7 @@ jobs:
 
       - uses: danielmundi/upload-packagecloud@v1
         with:
-          PACKAGE-NAME: bashpass-3.1-1.noarch.rpm
+          PACKAGE-NAME: bashpass-3.2-1.noarch.rpm
           PACKAGECLOUD-USERNAME: AntonVanAssche
           PACKAGECLOUD-REPO: bashpass
           PACKAGECLOUD-DISTRIB: fedora/37/
